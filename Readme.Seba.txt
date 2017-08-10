@@ -14,10 +14,49 @@ branch:
 
 
 ++++++++++++++++++++++++++++++++++
-NEW:
-branch:
+NEW: we can show/hide the add Apointment component
+branch:hideAddAppointmentComponent
 ++++
+- we create an Create Style Object which will manage the inline style
+- we will manage this subComponent managing its Props which will have a State associated
+- we must manage the events on the item
+ - we will manage the clickEven
+  - have a subComponents copy and one equivalent to manage the state of the subComponent
 
+This is how we do it:
+    var displayAddApointmentBody = {
+      display: this.props.addApointmentBodyVisible ? 'block' : 'none'
+      // if display is TRUE then show the block : else show none
+    }; // displayAddApointmentBody
+
+this will be one props in app.js for the AddNewAppointment subComp:
+    addApointmentBodyVisible = {this.state.addAppointmentBodyIsVisible}
+
+and this is set to false in the MainInterface getInitialState
+
+therefore, now on refresh we get the AddNewAppointment hidden.
+
+to toggle on/off, we add the onClick={this.toggleDisplayAddApointmentForm}
+which will call the function to set the state of the AddNewAppointment form:
+
+    toggleDisplayAddApointmentForm:function(){
+      this.props.handleToggleDisplayAddForm();
+    },
+
+this one will refer to the app.js on AddNewAppointment object which is sent with the variable set:
+    handleToggleDisplayAddForm = {this.toggleAddDisplay}
+this will call a function before the render to change the status of the form display to on/off:
+
+    toggleAddDisplay: function(){
+      tempVisibility = !this.state.addAppointmentBodyIsVisible;
+      this.setState({
+        addAppointmentBodyIsVisible : tempVisibility
+      }); // setState
+    }, // toggleAddDisplay
+
+in short, the object AddNewAppointment will be rendered with two propos:
+    addApointmentBodyVisible & handleToggleDisplayAddForm
+on any change driven by the onClick, the new object is invoked with the new prop for handleToggleDisplayAddForm.
 
 ++++++++++++++++++++++++++++++++++
 NEW: add interface for adding records into dB
