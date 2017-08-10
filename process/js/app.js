@@ -9,6 +9,7 @@ var AddNewAppointment = require('./AddNewAppointment');
 var MainInterface = React.createClass({
   getInitialState: function() {
     return {
+      addAppointmentBodyIsVisible: false,
       myAppointments: []
     } //return
   }, //getInitialState
@@ -34,6 +35,13 @@ var MainInterface = React.createClass({
    }); // setState
  },//deleleRecord
 
+ toggleAddDisplay: function(){
+   tempVisibility = !this.state.addAppointmentBodyIsVisible;
+   this.setState({
+     addAppointmentBodyIsVisible : tempVisibility
+   }); // setState
+ }, // toggleAddDisplay
+
   render: function() {
     var filteredApts = this.state.myAppointments;
     filteredApts = filteredApts.map(function(item, index) {
@@ -49,7 +57,10 @@ var MainInterface = React.createClass({
       <div className="interface">
       <p>Avem {filteredApts.length} ELEMENTE in dB si folosim functii dintr-un fisier separat :).</p>
       <p>Avem acum si access la events</p>
-        <AddNewAppointment />
+        <AddNewAppointment
+          addApointmentBodyVisible = {this.state.addAppointmentBodyIsVisible}
+          handleToggleDisplayAddForm = {this.toggleAddDisplay}
+        />
         <ul className="item-list media-list">{filteredApts}</ul>
       </div>
     ) //return
