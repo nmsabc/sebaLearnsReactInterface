@@ -1,17 +1,34 @@
 
-
-
 ++++++++++++++++++++++++++++++++++
-NEW:
-branch:
+NEW: we add a new record
+branch:hideAddAppointmentComponent
 ++++
+we make use of onSubmit and we ensure that we pass to the fucntion the event e.
+on this event we will make sure that we set e.preventDefault();
 
+we use the this.refs.<inputId> to create a tempRecord that will be sent to the main app.
 
-++++++++++++++++++++++++++++++++++
-NEW:
-branch:
-++++
+in the main app, we check if petName exists. if yes, we add record with the firstTimer == false ? true
 
+we use .push followed by .setState as follows
+
+            addRecord: function(tempRecord){
+              var tempApts = this.state.myAppointments;
+
+              //we check if the record is in the dB
+              var existingRecord = _.findIndex(tempApts, {"petName":tempRecord.petName});
+              if (existingRecord == "-1" ){
+                  tempRecord.firstTimer = "true";
+              } else { // we have the petName in the record list
+                  tempRecord.firstTimer = "false";
+              }//if-else
+
+              // we add the record inthe dB
+              tempApts.push(tempRecord);
+              this.setState({
+                myAppointments: tempApts
+              });//setState
+            },//addRecord function
 
 ++++++++++++++++++++++++++++++++++
 NEW: we can show/hide the add Apointment component

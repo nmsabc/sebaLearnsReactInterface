@@ -42,6 +42,24 @@ var MainInterface = React.createClass({
    }); // setState
  }, // toggleAddDisplay
 
+addRecord: function(tempRecord){
+  var tempApts = this.state.myAppointments;
+
+  //we check if the record is in the dB
+  var existingRecord = _.findIndex(tempApts, {"petName":tempRecord.petName});
+  if (existingRecord == "-1" ){
+      tempRecord.firstTimer = "true";
+  } else { // we have the petName in the record list
+      tempRecord.firstTimer = "false";
+  }//if-else
+
+  // we add the record inthe dB
+  tempApts.push(tempRecord);
+  this.setState({
+    myAppointments: tempApts
+  });//setState
+},//addRecord function
+
   render: function() {
     var filteredApts = this.state.myAppointments;
     filteredApts = filteredApts.map(function(item, index) {
@@ -60,6 +78,7 @@ var MainInterface = React.createClass({
         <AddNewAppointment
           addApointmentBodyVisible = {this.state.addAppointmentBodyIsVisible}
           handleToggleDisplayAddForm = {this.toggleAddDisplay}
+          addAptInDb = {this.addRecord}
         />
         <ul className="item-list media-list">{filteredApts}</ul>
       </div>

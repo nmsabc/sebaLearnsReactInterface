@@ -7,20 +7,31 @@ var AddNewAppointment = React.createClass({
    this.props.handleToggleDisplayAddForm();
  },
 
-  render: function(){
+AddNewAppointmentInDb: function(e){
+  var tempRecord = {
+    petName: this.refs.inputPetName.value,
+    ownerName: this.refs.inputOwnerName.value,
+    aptDate: this.refs.inputAptDate.value + " " + this.refs.inputAptTime.value,
+    pastSurgery: this.refs.inputSurgeryNotes.value,
+    aptNotes: this.refs.inputAptNotes.value,
+    firstTimer: "tbc"
+  }//tempRecord
+  e.preventDefault();
+  this.props.addAptInDb(tempRecord);
+}, //AddNewAppointmentInDb
 
+  render: function(){
     var displayAddApointmentBody = {
       display: this.props.addApointmentBodyVisible ? 'block' : 'none'
       // if display is TRUE then show the block : else show none
     }; // displayAddApointmentBody
-
 
     return(
       <div className="panel panel-primary">
         <div className="panel-heading apt-addheading" onClick={this.toggleDisplayAddApointmentForm}>
         <span className="glyphicon glyphicon-plus"></span> Add Appointment</div>
         <div className="panel-body" style={displayAddApointmentBody}>
-          <form className="add-appointment form-horizontal">
+          <form className="add-appointment form-horizontal" onSubmit = {this.AddNewAppointmentInDb}>
             <div className="form-group">
             <label className="col-sm-2 control-label" htmlFor="petName">Pet Name</label>
               <div className="col-sm-10">
@@ -50,10 +61,10 @@ var AddNewAppointment = React.createClass({
             </div>
 
             <div className="form-group">
-              <label className="col-sm-2 control-label" htmlFor="apt-pastSurgery">Any known Past Surgeries:</label>
+              <label className="col-sm-2 control-label" htmlFor="aptPastSurgery">Any known Past Surgeries:</label>
               <div className="col-sm-10">
                 <textarea className="form-control" rows="2" cols="50"
-                  id="apt-pastSurgery" ref="inputSurgeryNotes" placeholder="please enter here details on any known past surgeries"></textarea>
+                  id="aptPastSurgery" ref="inputSurgeryNotes" placeholder="please enter here details on any known past surgeries"></textarea>
               </div>
             </div>
 
