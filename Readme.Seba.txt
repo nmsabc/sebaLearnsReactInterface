@@ -1,5 +1,20 @@
 
 ++++++++++++++++++++++++++++++++++
+NEW: we search for the records and sort them
+branch:onSearchCOmponent
+++++
+
+for the search components we did:
+1. add the SearchAppointments sumbcomponent which will use order by diff fields to do a dynamic search.
+2. then we add functions to handle the query as it is written(onChange)
+3. important is to remember:
+- to set the var in getInitialState: orderBy, orderDir, queryText
+- render function will take care of all changes from:
+  ==> getInitialState: queryText, orderBy_using_lodash,
+  ==> returns of the components to be rendered <p>, <AddNewAppointment>, SearchAppointments> si intreaga baza de date: {filteredApts}
+
+
+++++++++++++++++++++++++++++++++++
 NEW: we add a new record
 branch:hideAddAppointmentComponent
 ++++
